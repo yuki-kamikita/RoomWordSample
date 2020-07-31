@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">RoomWordSample</string>
+    <string name="add_word">追加</string>
+    <string name="clear_word">削除</string>
+    <string name="hint_word">単語を入力してください</string>
+    <string name="button_save">保存</string>
+    <string name="empty_not_saved">内容が空です</string>
+</resources>
