@@ -34,22 +34,26 @@ class MainActivity : AppCompatActivity() {
             words?.let { adapter.setWords(it) }
         })
 
-        // 追加ボタンを押した時に
-        val fab = findViewById<FloatingActionButton>(R.id.fab)
+        // 追加ボタン押下
         fab.setOnClickListener {
             val intent = Intent(this@MainActivity, NewWordActivity::class.java)
             startActivityForResult(intent, newWordActivityRequestCode)
         }
+
+        // 削除ボタン追加
+        clear.setOnClickListener {
+            wordViewModel.deleteAll()
+        }
     }
 
-    // 追加ボタンを押した結果？
+    // NewWordActivityから返ってきた時
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == newWordActivityRequestCode && resultCode == Activity.RESULT_OK) {
             data?.getStringExtra(NewWordActivity.EXTRA_REPLY)?.let {
-                val word = Word(0, it)
-                wordViewModel.insert(word)
+                val word = Word(0, it) // 追加する文字の情報
+                wordViewModel.insert(word) // 追加
             }
         } else {
             Toast.makeText(

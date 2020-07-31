@@ -32,4 +32,9 @@ class WordViewModel(application: Application) : AndroidViewModel(application) {
     fun insert(word: Word) = viewModelScope.launch(Dispatchers.IO) {
         repository.insert(word)
     }
+
+    // 削除処理追加
+    fun deleteAll() = viewModelScope.launch(Dispatchers.IO) {
+        repository.deleteAll()
+    }
 }
