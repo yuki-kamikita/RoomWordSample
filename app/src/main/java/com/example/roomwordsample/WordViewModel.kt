@@ -4,6 +4,8 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import com.example.roomwordsample.Room.Word
+import com.example.roomwordsample.Room.WordRoomDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -18,11 +20,13 @@ class WordViewModel(application: Application) : AndroidViewModel(application) {
     // - データにオブザーバーを配置して（変更をポーリングする代わりに）、データが実際に変更されたときにのみUIを更新できます。
     // - リポジトリは、ViewModelによってUIから完全に分離されています。
     val allWords: LiveData<List<Word>>
+    val word: LiveData<Word>
 
     init {
         val wordsDao = WordRoomDatabase.getDatabase(application, viewModelScope).wordDao()
         repository = WordRepository(wordsDao)
         allWords = repository.allWords
+        word = repository.word
     }
 
     /**

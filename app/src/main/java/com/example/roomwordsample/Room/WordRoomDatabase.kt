@@ -1,4 +1,4 @@
-package com.example.roomwordsample
+package com.example.roomwordsample.Room
 
 import android.content.Context
 import androidx.room.Database
@@ -10,7 +10,10 @@ import kotlinx.coroutines.launch
 
 // Annotates class to be a Room Database with a table (entity) of the Word class
 // Wordクラスのテーブル（エンティティ）を使用して、クラスにルームデータベースの注釈を付けます
-@Database(entities = arrayOf(Word::class), version = 1, exportSchema = false)
+@Database(
+    entities = arrayOf(Word::class),
+    version = 1,
+    exportSchema = false)
 abstract class WordRoomDatabase : RoomDatabase() {
 
     abstract fun wordDao(): WordDao
@@ -32,9 +35,9 @@ abstract class WordRoomDatabase : RoomDatabase() {
 
                     // Add sample words.
                     // 文字追加
-                    var word = Word(0,"Hello")
+                    var word = Word(0, "Hello")
                     wordDao.insert(word)
-                    word = Word(0,"World!")
+                    word = Word(0, "World!")
                     wordDao.insert(word)
                 }
             }
@@ -53,13 +56,18 @@ abstract class WordRoomDatabase : RoomDatabase() {
         ): WordRoomDatabase {
             // if the INSTANCE is not null, then return it, if it is, then create the database
             // INSTANCEがnullでない場合はそれを返し、それがnullの場合はデータベースを作成します
-            return INSTANCE ?: synchronized(this) {
+            return INSTANCE
+                ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     WordRoomDatabase::class.java,
                     "word_database"
                 )
-                    .addCallback(WordDatabaseCallback(scope))
+                    .addCallback(
+                        WordDatabaseCallback(
+                            scope
+                        )
+                    )
                     .build()
                 INSTANCE = instance
                 // return instance

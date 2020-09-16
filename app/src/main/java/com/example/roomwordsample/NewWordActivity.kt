@@ -9,6 +9,8 @@ import android.widget.Button
 import android.widget.EditText
 import kotlinx.android.synthetic.main.activity_new_word.*
 
+/**
+ * Roomに追加する時の画面 */
 class NewWordActivity : AppCompatActivity() {
 
     public override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,11 +20,11 @@ class NewWordActivity : AppCompatActivity() {
         button_save.setOnClickListener {
             val replyIntent = Intent()
             if (TextUtils.isEmpty(edit_word.text)) { // 入力が空
-                setResult(Activity.RESULT_CANCELED, replyIntent)
+                setResult(Activity.RESULT_CANCELED, replyIntent) // MainActivityにエラーを返す
             } else { // 入力あり
                 val word = edit_word.text.toString()
                 replyIntent.putExtra(EXTRA_REPLY, word)
-                setResult(Activity.RESULT_OK, replyIntent)
+                setResult(Activity.RESULT_OK, replyIntent) // MainActivityに入力文字を返す
             }
             finish()
         }
